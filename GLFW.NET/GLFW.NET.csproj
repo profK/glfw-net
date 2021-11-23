@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>GLFW</RootNamespace>
     <Authors>Eric Freed</Authors>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
@@ -23,17 +22,19 @@
     <Title>glfw-net</Title>
     <PackageIconUrl>https://github.com/ForeverZer0/glfw-net/raw/master/favicons.png</PackageIconUrl>
     <PackageId>glfw-net</PackageId>
+    <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\GLFW.NET.xml</DocumentationFile>
     <DefineConstants>TRACE;RELEASE;NETSTANDARD;NETSTANDARD2_0;GLFW_VERSION_3_3</DefineConstants>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.0\GLFW.NET.xml</DocumentationFile>
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD;NETSTANDARD2_0;GLFW_VERSION_3_3</DefineConstants>
+    <DefineConstants>TRACE2_0;GLFW_VERSION_3_3;Windows</DefineConstants>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
 

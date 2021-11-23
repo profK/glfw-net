@@ -25,10 +25,13 @@ namespace GLFW
         public const string LIBRARY = "glfw3";
 #elif OSX
         public const string LIBRARY = "libglfw.3"; // mac
-#else
+#elif Linux
         public const string LIBRARY = "glfw";
+#else
+#error You must define one of the 3 #defines Windows,OSX or Linux
 #endif
 
+       
         private static readonly ErrorCallback errorCallback = GlfwError;
 
         #endregion
@@ -268,6 +271,18 @@ namespace GLFW
             }
 
             return hat;
+        }
+        
+        /// <summary>
+        ///     Returns the number of all hats of the specified joystick 
+        /// </summary>
+        /// <param name="joystickId">The joystick to query.</param>
+        /// <returns>A bitmask enumeration containing the state of the joystick hats.</returns>
+        public static int GetJoystickHatCount(int joystickId)
+        {
+            var ptr = GetJoystickHats(joystickId, out var count);
+            return count;
+
         }
 
         [DllImport(LIBRARY, EntryPoint = "glfwGetJoystickGUID", CallingConvention = CallingConvention.Cdecl)]
@@ -1593,6 +1608,16 @@ namespace GLFW
                 Marshal.Copy(ptr, axes, 0, count);
             return axes;
         }
+        
+        /// <summary>
+        ///  Just get the number of Axes
+        /// </summary>
+        /// <returns></returns>
+        public static int GetJoystickAxesCount(Joystick joystick)
+        {
+            var ptr = GetJoystickAxes(joystick, out var count);
+            return count;
+        }
 
         /// <summary>
         ///     Gets the state of all buttons of the specified joystick.
@@ -1606,6 +1631,17 @@ namespace GLFW
             for (var i = 0; i < count; i++)
                 states[i] = (InputState) Marshal.ReadByte(ptr, i);
             return states;
+        }
+        
+        // <summary>
+        ///     Gets the total number of buttons on joystick
+        /// </summary>
+        /// <param name="joystick">The joystick to query.</param>
+        /// <returns>An array of values, either <see cref="InputState.Press" /> and <see cref="InputState.Release" />.</returns>
+        public static int GetJoystickButtonsCount(Joystick joystick)
+        {
+            var ptr = GetJoystickButtons(joystick, out var count);
+            return count;
         }
 
         /// <summary>
